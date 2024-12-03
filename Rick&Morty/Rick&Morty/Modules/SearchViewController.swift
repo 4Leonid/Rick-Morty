@@ -1,18 +1,15 @@
 //
-//  CharactersViewController.swift
+//  SearchViewController.swift
 //  Rick&Morty
 //
-//  Created by Леонид Турко on 01.12.2024.
+//  Created by Леонид Турко on 02.12.2024.
 //
 
 import UIKit
-import SnapKit
 
-
-
-final class CharactersViewController: UIViewController {
+final class SearchViewController: UIViewController {
   
-  private var charactersView = CharactersView()
+  private var searchView = SearchView()
 
   override func viewDidLoad() {
       super.viewDidLoad()
@@ -23,15 +20,15 @@ final class CharactersViewController: UIViewController {
   }
 }
 
-extension CharactersViewController {
+extension SearchViewController {
   
   func setupViews() {
     view.backgroundColor = .orange
-    view.addSubview(charactersView)
+    view.addSubview(searchView)
   }
   
   func setupConstraints() {
-    charactersView.snp.makeConstraints { make in
+    searchView.snp.makeConstraints { make in
       make.left.right.equalTo(view).inset(21)
       make.top.equalTo(view.safeAreaLayoutGuide).offset(69)
       make.bottom.equalTo(view.safeAreaLayoutGuide).inset(99)

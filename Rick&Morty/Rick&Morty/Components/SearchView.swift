@@ -1,13 +1,15 @@
 //
-//  CharactersView.swift
+//  SearchView.swift
 //  Rick&Morty
 //
-//  Created by Леонид Турко on 01.12.2024.
+//  Created by Леонид Турко on 02.12.2024.
 //
 
 import UIKit
 
-class CharactersView: UIView {
+class SearchView: UIView {
+  
+  private let emptyView = SearchPanelView()
   
   private var keyValueStackView = KeyValueStackView()
   private var cardImageView = ImageView(type: .card)
@@ -15,8 +17,8 @@ class CharactersView: UIView {
   private var favoriteButton = Button(type: .favorite)
   private var infoButton = Button(type: .info)
   
-  private let leftWhiteButton = Button(type: .leftWhite)
-  private let rightWhiteButton = Button(type: .rightWhite)
+  private let leftGreenButton = Button(type: .leftGreen)
+  private let rightGreenButton = Button(type: .rightGreen)
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -30,7 +32,7 @@ class CharactersView: UIView {
   }
   
   func setupViews() {
-    backgroundColor = .systemMint
+    backgroundColor = .black
     layer.cornerRadius = 42
     clipsToBounds = false
     
@@ -43,22 +45,33 @@ class CharactersView: UIView {
       keyValueStackView.addArrangedSubview(keyValueLabel)
     }
     
+    emptyView.backgroundColor = .green
+    
+    cardImageView.addSubview(keyValueStackView)
+    addSubview(emptyView)
     addSubview(cardImageView)
     addSubview(favoriteButton)
     addSubview(infoButton)
-    addSubview(leftWhiteButton)
-    addSubview(rightWhiteButton)
+    addSubview(leftGreenButton)
+    addSubview(rightGreenButton)
     
   }
   
   func setupConstraints() {
-    keyValueStackView.snp.makeConstraints { make in
-      make.top.left.right.equalTo(self).inset(39)
+    
+    emptyView.snp.makeConstraints { make in
+      make.top.equalTo(self).offset(46)
+      make.left.right.equalTo(self).inset(24)
+      make.height.equalTo(57)
     }
     
+    keyValueStackView.snp.makeConstraints { make in
+      make.bottom.left.right.equalTo(cardImageView)
+      make.height.equalTo(100)
+    }
     
     cardImageView.snp.makeConstraints { make in
-      make.top.equalTo(keyValueStackView.snp.bottom).offset(24)
+      make.top.equalTo(emptyView.snp.bottom).offset(42)
       make.left.right.equalTo(self).inset(24)
     }
     
@@ -69,15 +82,16 @@ class CharactersView: UIView {
     
     infoButton.snp.makeConstraints { make in
       make.right.equalTo(cardImageView.snp.right)
-      make.bottom.equalTo(cardImageView.snp.bottom)
+      //make.bottom.equalTo(cardImageView.snp.bottom)
+      make.centerY.equalTo(keyValueStackView.snp.top)
     }
     
-    leftWhiteButton.snp.makeConstraints { make in
+    leftGreenButton.snp.makeConstraints { make in
       make.top.equalTo(cardImageView.snp.bottom).offset(18)
       make.left.equalTo(self).inset(72)
     }
     
-    rightWhiteButton.snp.makeConstraints { make in
+    rightGreenButton.snp.makeConstraints { make in
       make.top.equalTo(cardImageView.snp.bottom).offset(18)
       make.right.equalTo(self).inset(72)
     }

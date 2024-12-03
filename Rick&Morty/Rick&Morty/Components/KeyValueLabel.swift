@@ -57,5 +57,21 @@ final class KeyValueLabel: UILabel {
     
         attributedText = result
     }
+  
+  func makeUnderlineString(_ string: String) -> AttributedString {
+    var attributedString = AttributedString(string)
     
+    attributedString.underlineStyle = NSUnderlineStyle.single
+    
+    return attributedString
+  }
+  
+  func update(text: String) {
+    let underlinedText = NSAttributedString(makeUnderlineString(text))
+    
+    let result = NSMutableAttributedString()
+    result.append(underlinedText)
+    
+    attributedText = result
+  }
 }
