@@ -16,9 +16,12 @@ final class FavoritesViewController: UIViewController {
     
     setupViews()
     setupConstraints()
+    setBackgroundImage()
   }
 }
 
+
+// MARK: - Layouts
 private extension FavoritesViewController {
   func setupViews() {
     view.backgroundColor = .systemBackground

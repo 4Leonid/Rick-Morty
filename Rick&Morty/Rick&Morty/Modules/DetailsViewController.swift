@@ -10,13 +10,14 @@ import UIKit
 final class DetailsViewController: UIViewController {
   
   private let detailsView = DetailsView()
-  private let detailTextView = DetailsSecondView()
+  private let detailTextView = DetailsStackView()
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
     setupViews()
     setupConstraints()
+    setBackgroundImage()
   }
 }
 

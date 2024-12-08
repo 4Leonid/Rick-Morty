@@ -7,8 +7,9 @@
 
 import UIKit
 
-class DetailsSecondView: UIView {
+final class DetailsStackView: UIView {
   
+  // MARK: - Private Properties
   private let nameLabel = KeyValueLabel()
   private var keyValueStackView = KeyValueStackView()
   
@@ -24,6 +25,7 @@ class DetailsSecondView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
   
+  // MARK: - Layout
   func setupViews() {
     
     backgroundColor = .systemGreen

@@ -7,10 +7,11 @@
 
 import UIKit
 
-class DetailsView: UIView {
+final class DetailsView: UIView {
   
+  // MARK: - Private Properties
   private var detailImageView = ImageView(type: .detail)
-  private let detailTextView = DetailsSecondView()
+  private let detailTextView = DetailsStackView()
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -23,6 +24,7 @@ class DetailsView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
   
+  // MARK: - Layout
   func setupViews() {
     backgroundColor = .white
     layer.cornerRadius = 42

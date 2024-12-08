@@ -30,6 +30,8 @@ class FavoriteCell: UITableViewCell {
 extension FavoriteCell {
   
   private func setupViews() {
+    contentView.backgroundColor = .black
+    
     favoriteImageView.addSubview(keyValueStackView)
     favoriteImageView.addSubview(favoriteButton)
     favoriteImageView.addSubview(infoButton)
@@ -39,7 +41,8 @@ extension FavoriteCell {
   
   private func setupConstraints() {
     favoriteImageView.snp.makeConstraints { make in
-      make.edges.equalToSuperview()
+      make.left.right.equalToSuperview()
+      make.top.bottom.equalToSuperview().inset(10)
     }
     
     favoriteButton.snp.makeConstraints { make in

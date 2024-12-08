@@ -16,11 +16,12 @@ final class SearchViewController: UIViewController {
       
       setupViews()
       setupConstraints()
-    
+    setBackgroundImage()
   }
 }
 
-extension SearchViewController {
+// MARK: - Layout
+private extension SearchViewController {
   
   func setupViews() {
     view.backgroundColor = .orange

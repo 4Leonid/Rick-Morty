@@ -6,43 +6,60 @@
 //
 
 import UIKit
+import Kingfisher
 
-class CharactersView: UIView {
+final class CharactersView: UIView {
+  
+  // MARK: - Private properties
+  private var planetLabel = Label(type: .character)
+  private var nameLabel = Label(type: .character)
+  private var statusLabel = Label(type: .character)
+  private var createdLabel = Label(type: .character)
   
   private var keyValueStackView = KeyValueStackView()
   private var cardImageView = ImageView(type: .card)
   
   private var favoriteButton = Button(type: .favorite)
-  private var infoButton = Button(type: .info)
+  var infoButton = Button(type: .info)
   
-  private let leftWhiteButton = Button(type: .leftWhite)
-  private let rightWhiteButton = Button(type: .rightWhite)
+  let leftWhiteButton = Button(type: .leftWhite)
+  let rightWhiteButton = Button(type: .rightWhite)
+  
+  var charactersInfo: [(key: String, value: String)] = []
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    
-    setupViews()
-    setupConstraints()
   }
+  
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
   
+  func update(chararcter: Character, charactersInfo:
+              [(key: String, value: String)]) {
+    let url = URL(string: chararcter.image)
+    cardImageView.kf.setImage(with: url)
+    planetLabel.text = "Planet: \(chararcter.location.name)"
+    nameLabel.text = "Name: \(chararcter.name)"
+    statusLabel.text = "Status: \(chararcter.status)"
+    createdLabel.text = "Created: \(chararcter.created)"
+    setupViews()
+    setupConstraints()
+  }
+  
+  // MARK: - Layout
   func setupViews() {
     backgroundColor = .systemMint
     layer.cornerRadius = 42
     clipsToBounds = false
     
+    keyValueStackView.addArrangedSubview(planetLabel)
+    keyValueStackView.addArrangedSubview(nameLabel)
+    keyValueStackView.addArrangedSubview(statusLabel)
+    keyValueStackView.addArrangedSubview(createdLabel)
+    
     addSubview(keyValueStackView)
-    
-    for index in 0..<4 {
-      let keyValueLabel = KeyValueLabel()
-      let model = array[index]
-      keyValueLabel.update(key: model.key, value: model.value)
-      keyValueStackView.addArrangedSubview(keyValueLabel)
-    }
-    
     addSubview(cardImageView)
     addSubview(favoriteButton)
     addSubview(infoButton)

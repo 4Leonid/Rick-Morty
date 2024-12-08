@@ -12,11 +12,12 @@ final class FavoritesView: UIView {
   private lazy var tableView: UITableView = {
     
     let tableView = UITableView()
-    tableView.backgroundColor = .systemPink
+    tableView.backgroundColor = .black
     tableView.delegate = self
     tableView.dataSource = self
     tableView.backgroundColor = .systemBackground
     tableView.separatorStyle = .none
+    tableView.layer.cornerRadius = 21
     tableView.registerCell(FavoriteCell.self)
     
     return tableView
@@ -37,7 +38,7 @@ final class FavoritesView: UIView {
 // MARK: - UITableViewDataSource
 extension FavoritesView: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    2
+    3
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -49,17 +50,20 @@ extension FavoritesView: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 extension FavoritesView: UITableViewDelegate {
-  
+ 
 }
 
-extension FavoritesView {
-  private func setupViews() {
+private extension FavoritesView {
+  
+  func setupViews() {
+    backgroundColor = .black
+    layer.cornerRadius = 42
     addSubview(tableView)
   }
   
-  private func setupConstraints() {
+  func setupConstraints() {
     tableView.snp.makeConstraints { make in
-      make.edges.equalToSuperview()
+      make.edges.equalToSuperview().inset(23)
     }
   }
 }

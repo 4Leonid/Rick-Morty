@@ -20,6 +20,8 @@ enum ButtonStyle {
 
 class Button: UIButton {
   
+  var onButtonAction: (() -> Void)?
+  
   init(type: ButtonStyle) {
     super.init(frame: .zero)
     
@@ -31,6 +33,9 @@ class Button: UIButton {
   }
   
   func commonInit(_ type: ButtonStyle) {
+    
+    self.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+    
     switch type {
     case .favorite:
       makeFavoriteStyle()
@@ -55,6 +60,8 @@ class Button: UIButton {
     self.widthAnchor.constraint(equalToConstant: 63).isActive = true
     self.heightAnchor.constraint(equalToConstant: 63).isActive = true
     self.setImage(UIImage(named: "info"), for: .normal)
+    
+  
     backgroundColor = .white
     layer.cornerRadius = 31.5
     clipsToBounds = true 
@@ -100,5 +107,11 @@ class Button: UIButton {
       self.widthAnchor.constraint(equalToConstant: 30).isActive = true
     self.heightAnchor.constraint(equalToConstant: 16).isActive = true
     self.setImage(UIImage(named: "arrow"), for: .normal)
+  }
+}
+
+extension Button {
+  @objc private func buttonTapped() {
+    onButtonAction?()
   }
 }
