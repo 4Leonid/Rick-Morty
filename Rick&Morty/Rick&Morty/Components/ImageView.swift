@@ -24,29 +24,25 @@ class ImageView: UIImageView {
     
     switch type {
     case .card:
-      heightAnchor.constraint(equalToConstant: 325).isActive = true
       layer.cornerRadius = 32
       image = UIImage(named: "default")
+      contentMode = .scaleAspectFill
+      heightAnchor.constraint(equalToConstant: ScreenSize.height * 0.3).isActive = true
       clipsToBounds = true
+      
     case .detail:
-      heightAnchor.constraint(equalToConstant: 325).isActive = true
       layer.cornerRadius = 41
-      image = UIImage(named: "detail")
       backgroundColor = .lightGray
       contentMode = .scaleAspectFit
       layer.borderWidth = 3
       layer.borderColor = UIColor.black.cgColor
       clipsToBounds = true
     case .search:
-      heightAnchor.constraint(equalToConstant: 50).isActive = true
-      widthAnchor.constraint(equalToConstant: 50).isActive = true
       image = UIImage(named: "globus")
       clipsToBounds = true
     case .favorite:
-      heightAnchor.constraint(equalToConstant: 300).isActive = true
-      widthAnchor.constraint(equalToConstant: 300).isActive = true
       image = UIImage(named: "default")
-      layer.cornerRadius = 21 
+      layer.cornerRadius = 21
       clipsToBounds = true
     }
   }

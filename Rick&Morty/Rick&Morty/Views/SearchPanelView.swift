@@ -13,14 +13,9 @@ final class SearchPanelView: UIView {
   
   private let worldImageView = ImageView(type: .search)
   
-  private lazy var textLabel: UILabel = {
-    let element = UILabel()
-    element.text = "Search by Planet"
-    element.textAlignment = .center
-    return element
-  }()
+  var textLabel = Label(type: .search, text: "Search by planet")
   
-  private let searchButton = Button(type: .search)
+  let searchButton = Button(type: .search)
    
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -34,6 +29,7 @@ final class SearchPanelView: UIView {
   }
   
   private func setupViews() {
+    backgroundColor = .appGreen
     layer.cornerRadius = 16
     horizontalStackView.addArrangedSubview(worldImageView)
     horizontalStackView.addArrangedSubview(textLabel)

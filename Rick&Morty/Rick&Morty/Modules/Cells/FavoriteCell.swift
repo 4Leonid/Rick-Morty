@@ -7,46 +7,92 @@
 
 import UIKit
 
-class FavoriteCell: UITableViewCell {
+final class FavoriteCell: UITableViewCell {
+  
+  var onFavoriteSelected: ((CharacterEntity)->())?
+  var onInfoSelected: ((CharacterEntity)->())?
   
   private let favoriteImageView = ImageView(type: .favorite)
   private var keyValueStackView = KeyValueStackView()
   
-  private let favoriteButton = Button(type: .favoriteActive)
-  private let infoButton = Button(type: .info)
+  let infoButton = Button(type: .info)
+  private let nameLabel = Label(type: .favorite, text: "Name: Summer Smith")
+  
+  var character: CharacterEntity?
+  
+  var favoriteButton = Button(type: .favoriteActive)
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     
     setupViews()
     setupConstraints()
+    setupObservers()
+  }
+  
+  
+  @objc  func favoriteButtonAction() {
+    print("favorite")
+  }
+  
+  func setupObservers() {
+    
+    favoriteButton.onButtonAction = { [weak self] in
+      
+      guard let self else { return }
+      
+      guard let character = self.character else { return }
+      
+      self.onFavoriteSelected?(character)
+    }
+    
+    
+    infoButton.onButtonAction = {
+      
+      guard let character = self.character else { return }
+      
+      self.onInfoSelected?(character)
+    }
   }
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+  
+  func update(_ character: CharacterEntity) {
+    
+    self.character = character
+    let url = URL(string: character.image ?? "")
+    favoriteImageView.kf.setImage(with: url)
+    nameLabel.text = "Name: \n\(character.name ?? "")"
+    
   }
 }
 
 extension FavoriteCell {
   
   private func setupViews() {
-    contentView.backgroundColor = .black
+    backgroundColor = .appBackground
+    contentView.layer.cornerRadius = 10
+    
+    keyValueStackView.backgroundColor = .appGreen
+    keyValueStackView.addArrangedSubview(nameLabel)
     
     favoriteImageView.addSubview(keyValueStackView)
-    favoriteImageView.addSubview(favoriteButton)
-    favoriteImageView.addSubview(infoButton)
-    
     contentView.addSubview(favoriteImageView)
+    contentView.addSubview(favoriteButton)
+    contentView.addSubview(infoButton)
+    
   }
   
   private func setupConstraints() {
     favoriteImageView.snp.makeConstraints { make in
-      make.left.right.equalToSuperview()
-      make.top.bottom.equalToSuperview().inset(10)
+      make.left.right.equalTo(contentView)
+      make.top.bottom.equalTo(contentView).inset(10)
     }
     
     favoriteButton.snp.makeConstraints { make in
-      make.top.left.equalToSuperview().inset(10)
+      make.top.left.equalTo(contentView).inset(10)
     }
     
     keyValueStackView.snp.makeConstraints { make in
@@ -54,8 +100,13 @@ extension FavoriteCell {
       make.height.equalTo(70)
     }
     
+    nameLabel.snp.makeConstraints { make in
+      make.left.right.equalTo(keyValueStackView).inset(10)
+      make.centerY.equalTo(keyValueStackView.snp.centerY)
+    }
+    
     infoButton.snp.makeConstraints { make in
-      make.right.equalTo(favoriteImageView.snp.right)
+      make.right.equalTo(contentView)
       make.centerY.equalTo(keyValueStackView.snp.top)
     }
   }

@@ -11,12 +11,6 @@ final class KeyValueLabel: UILabel {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        commonInit()
-    }
-    
-    func commonInit() {
-
     }
     
     required init?(coder: NSCoder) {

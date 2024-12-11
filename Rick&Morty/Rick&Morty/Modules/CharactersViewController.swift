@@ -12,6 +12,8 @@ final class CharactersViewController: UIViewController {
   
   private var charactersView = CharactersView()
   private let charactersLoader = CharactersLoader()
+  private let characterStorage = CharacterStorage()
+  private let headLineLabel = Label(type: .headline, text: "Characters")
   
   var characters: [Character] = []
   var character: Character?
@@ -19,28 +21,31 @@ final class CharactersViewController: UIViewController {
   
   var characterId = 1
   
-  func convertModelToKeyValuePairs(_ model: Character) -> [(key: String, value: String)] {
-    
-    let array: [(key: String, value: String)] = [("Planet: ", model.origin.name), ("Name: ", model.name), ("Status: ", model.status), ("Created: ", model.created)]
-    
-    return array
-  }
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     setupViews()
     setupConstraints()
     setBackgroundImage()
-    
     setupObservers()
     
-    //loadCharacters()
     loadCharacter(characterId)
   }
 }
 
 extension CharactersViewController {
+  
+  func convertModelToKeyValuePairs(_ model: Character) -> [(key: String, value: String)] {
+    
+    let array: [(key: String, value: String)] = [
+      ("Planet: ", model.origin.name),
+      ("Name: ", model.name),
+      ("Status: ", model.status),
+      ("Created: ", model.created)
+    ]
+    
+    return array
+  }
   
   func loadCharacter(_ id: Int) {
     charactersLoader.loadCharacter(id: id) { [weak self] result in
@@ -48,15 +53,16 @@ extension CharactersViewController {
       guard let self else { return }
       
       switch result {
-        
       case .success(let character):
         self.character = character
-        
-        
-        
         let characterInfo = self.convertModelToKeyValuePairs(character)
-        
         self.charactersView.update(chararcter: character, charactersInfo: characterInfo)
+        
+        if characterStorage.isCharacterExists(characterID: characterId) {
+          charactersView.favoriteButton.isSelected = true
+        } else {
+          charactersView.favoriteButton.isSelected = false
+        }
         
       case .failure(let error):
         print(error)
@@ -65,39 +71,63 @@ extension CharactersViewController {
   }
 }
 
-// MARK: - Layout
+// MARK: - Observers
 extension CharactersViewController {
   
   func setupObservers() {
-     
+    
     charactersView.infoButton.onButtonAction = {
       let detailVC = DetailsViewController()
+      
       self.present(detailVC, animated: true)
+      
+      guard let character = self.character else { return }
+      detailVC.update(character)
     }
     
     charactersView.leftWhiteButton.onButtonAction = {
       self.characterId = self.characterId - 1 == 0 ? 826 : self.characterId - 1
-      //self.charactersInfo.removeAll()
       self.loadCharacter(self.characterId)
     }
     
     charactersView.rightWhiteButton.onButtonAction = {
       self.characterId = self.characterId + 1 == 826 ? 1 : self.characterId + 1
-      //self.charactersInfo.removeAll()
       self.loadCharacter(self.characterId)
     }
+    
+    charactersView.favoriteButton.onButtonAction = { [weak self] in
+      guard let self else { return }
+      
+      self.charactersView.favoriteButton.isSelected.toggle()
+      
+      guard let character = self.character else { return }
+      
+      if self.charactersView.favoriteButton.isSelected {
+        characterStorage.save(character: character)
+        
+      } else {
+        characterStorage.delete(characterID: characterId)
+      }
+    }
   }
-  
+}
+
+extension CharactersViewController {
   func setupViews() {
-    view.backgroundColor = .orange
+    view.addSubview(headLineLabel)
     view.addSubview(charactersView)
   }
   
   func setupConstraints() {
+    headLineLabel.snp.makeConstraints { make in
+      make.top.equalTo(view.safeAreaLayoutGuide).inset(16)
+      make.centerX.equalTo(view.snp.centerX)
+    }
+    
     charactersView.snp.makeConstraints { make in
+      make.top.equalTo(view).offset(view.bounds.height * 0.15)
       make.left.right.equalTo(view).inset(21)
-      make.top.equalTo(view.safeAreaLayoutGuide).offset(69)
-      make.bottom.equalTo(view.safeAreaLayoutGuide).inset(99)
+      make.centerY.equalTo(view.snp.centerY)
     }
   }
 }

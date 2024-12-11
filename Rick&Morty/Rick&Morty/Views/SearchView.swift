@@ -9,16 +9,22 @@ import UIKit
 
 class SearchView: UIView {
   
-  private let emptyView = SearchPanelView()
+  var searchPanelView = SearchPanelView()
+    
+    
+  private var cardImageView = ImageView(type: .card)
+    
+  private var planetLabel = Label(type: .search, text: "Planet: Earth")
+  private var nameLabel = Label(type: .search, text: "Name: Rick")
   
   private var keyValueStackView = KeyValueStackView()
-  private var cardImageView = ImageView(type: .card)
+ 
   
-  private var favoriteButton = Button(type: .favorite)
-  private var infoButton = Button(type: .info)
+  var favoriteButton = Button(type: .favorite)
+  var infoButton = Button(type: .info)
   
-  private let leftGreenButton = Button(type: .leftGreen)
-  private let rightGreenButton = Button(type: .rightGreen)
+  var leftGreenButton = Button(type: .leftGreen)
+  var rightGreenButton = Button(type: .rightGreen)
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -32,23 +38,17 @@ class SearchView: UIView {
   }
   
   func setupViews() {
-    backgroundColor = .black
+    backgroundColor = .appBackground
     layer.cornerRadius = 42
     clipsToBounds = false
     
+    keyValueStackView.backgroundColor = .appGreen
+    keyValueStackView.addArrangedSubview(planetLabel)
+    keyValueStackView.addArrangedSubview(nameLabel)
+    
     addSubview(keyValueStackView)
-    
-    for index in 0..<4 {
-      let keyValueLabel = KeyValueLabel()
-      let model = array[index]
-      keyValueLabel.update(key: model.key, value: model.value)
-      keyValueStackView.addArrangedSubview(keyValueLabel)
-    }
-    
-    emptyView.backgroundColor = .green
-    
     cardImageView.addSubview(keyValueStackView)
-    addSubview(emptyView)
+    addSubview(searchPanelView)
     addSubview(cardImageView)
     addSubview(favoriteButton)
     addSubview(infoButton)
@@ -57,9 +57,19 @@ class SearchView: UIView {
     
   }
   
+  func update(_ character: Character) {
+      
+      let url = URL(string: character.image)
+      cardImageView.kf.setImage(with: url)
+      
+      
+    planetLabel.text = "Planet: \n\(character.location.name)"
+    nameLabel.text = "Name: \n\(character.name)"
+  }
+  
   func setupConstraints() {
     
-    emptyView.snp.makeConstraints { make in
+    searchPanelView.snp.makeConstraints { make in
       make.top.equalTo(self).offset(46)
       make.left.right.equalTo(self).inset(24)
       make.height.equalTo(57)
@@ -71,7 +81,7 @@ class SearchView: UIView {
     }
     
     cardImageView.snp.makeConstraints { make in
-      make.top.equalTo(emptyView.snp.bottom).offset(42)
+      make.top.equalTo(searchPanelView.snp.bottom).offset(42)
       make.left.right.equalTo(self).inset(24)
     }
     
@@ -82,18 +92,24 @@ class SearchView: UIView {
     
     infoButton.snp.makeConstraints { make in
       make.right.equalTo(cardImageView.snp.right)
-      //make.bottom.equalTo(cardImageView.snp.bottom)
       make.centerY.equalTo(keyValueStackView.snp.top)
     }
     
     leftGreenButton.snp.makeConstraints { make in
+      
       make.top.equalTo(cardImageView.snp.bottom).offset(18)
       make.left.equalTo(self).inset(72)
+      make.bottom.equalTo(self).inset(8)
     }
     
     rightGreenButton.snp.makeConstraints { make in
       make.top.equalTo(cardImageView.snp.bottom).offset(18)
       make.right.equalTo(self).inset(72)
+      make.bottom.equalTo(self).inset(8)
+    }
+    
+    planetLabel.snp.makeConstraints { make in
+      make.left.right.equalTo(keyValueStackView).inset(16)
     }
   }
 }

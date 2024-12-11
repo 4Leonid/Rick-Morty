@@ -19,7 +19,7 @@ final class CharactersView: UIView {
   private var keyValueStackView = KeyValueStackView()
   private var cardImageView = ImageView(type: .card)
   
-  private var favoriteButton = Button(type: .favorite)
+  var favoriteButton = Button(type: .favorite)
   var infoButton = Button(type: .info)
   
   let leftWhiteButton = Button(type: .leftWhite)
@@ -30,7 +30,6 @@ final class CharactersView: UIView {
   override init(frame: CGRect) {
     super.init(frame: frame)
   }
-  
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
@@ -50,7 +49,7 @@ final class CharactersView: UIView {
   
   // MARK: - Layout
   func setupViews() {
-    backgroundColor = .systemMint
+    backgroundColor = .appBackground
     layer.cornerRadius = 42
     clipsToBounds = false
     
@@ -71,8 +70,8 @@ final class CharactersView: UIView {
   func setupConstraints() {
     keyValueStackView.snp.makeConstraints { make in
       make.top.left.right.equalTo(self).inset(39)
+      make.height.equalTo(100)
     }
-    
     
     cardImageView.snp.makeConstraints { make in
       make.top.equalTo(keyValueStackView.snp.bottom).offset(24)
@@ -92,11 +91,14 @@ final class CharactersView: UIView {
     leftWhiteButton.snp.makeConstraints { make in
       make.top.equalTo(cardImageView.snp.bottom).offset(18)
       make.left.equalTo(self).inset(72)
+      make.bottom.equalTo(self).inset(8)
     }
     
     rightWhiteButton.snp.makeConstraints { make in
       make.top.equalTo(cardImageView.snp.bottom).offset(18)
       make.right.equalTo(self).inset(72)
+      make.bottom.equalTo(self).inset(8)
     }
   }
 }
+

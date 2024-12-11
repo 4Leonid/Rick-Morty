@@ -64,13 +64,14 @@ class Button: UIButton {
   
     backgroundColor = .white
     layer.cornerRadius = 31.5
-    clipsToBounds = true 
+    clipsToBounds = true
   }
   
   func makeFavoriteStyle() {
     self.widthAnchor.constraint(equalToConstant: 61).isActive = true
     self.heightAnchor.constraint(equalToConstant: 54).isActive = true
     self.setImage(UIImage(named: "Star 1"), for: .normal)
+    self.setImage(UIImage(named: "Star 2"), for: .selected)
   }
   
   func makeFavoriteActiveStyle() {
@@ -112,6 +113,8 @@ class Button: UIButton {
 
 extension Button {
   @objc private func buttonTapped() {
+    
     onButtonAction?()
+    
   }
 }

@@ -9,6 +9,9 @@ import UIKit
 
 enum LabelType {
   case character
+  case search
+  case favorite
+  case headline
 }
 
 class Label: UILabel {
@@ -23,8 +26,27 @@ class Label: UILabel {
     switch type {
     case .character:
       self.text = text
-      self.textColor = .white
+      textColor = .white
       font = .systemFont(ofSize: 14, weight: .bold)
+      numberOfLines = 0
+    case .search:
+      self.text = text
+      textColor = .black
+      textAlignment = .left
+      font = .systemFont(ofSize: 20, weight: .bold)
+      numberOfLines = 0
+    case .favorite:
+      self.text = text
+      textColor = .black
+      textAlignment = .left
+      font = .systemFont(ofSize: 20, weight: .bold)
+      numberOfLines = 0
+    case .headline:
+      self.text = text
+      textColor = .white
+      textAlignment = .left
+      font = .systemFont(ofSize: 24, weight: .regular)
+      numberOfLines = 0
     }
   }
   

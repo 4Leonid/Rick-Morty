@@ -10,7 +10,7 @@ import UIKit
 final class DetailsViewController: UIViewController {
   
   private let detailsView = DetailsView()
-  private let detailTextView = DetailsStackView()
+  private let headLineLabel = Label(type: .headline, text: "Details")
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -22,23 +22,31 @@ final class DetailsViewController: UIViewController {
 }
 
 extension DetailsViewController {
+  func update(_ character: Character) {
+    
+    detailsView.update(character)
+    
+  }
+}
+
+extension DetailsViewController {
   func setupViews() {
-    view.backgroundColor = .orange
     
     view.addSubview(detailsView)
-    view.addSubview(detailTextView)
+    view.addSubview(headLineLabel)
   }
   
   func setupConstraints() {
-    detailsView.snp.makeConstraints { make in
-      make.left.right.equalTo(view).inset(21)
-      make.top.equalTo(view.safeAreaLayoutGuide).offset(69)
-      make.bottom.equalTo(view.safeAreaLayoutGuide).inset(99)
+    
+    headLineLabel.snp.makeConstraints { make in
+      make.top.equalTo(view.safeAreaLayoutGuide).inset(16)
+      make.centerX.equalTo(view.snp.centerX)
     }
     
-    detailTextView.snp.makeConstraints { make in
-      make.top.equalTo(detailsView.snp.bottom).offset(39)
+    detailsView.snp.makeConstraints { make in
+      make.top.equalTo(view).offset(view.bounds.height * 0.15)
       make.left.right.equalTo(view).inset(21)
+      make.centerY.equalTo(view.snp.centerY)
     }
   }
 }

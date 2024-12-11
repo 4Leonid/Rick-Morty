@@ -7,7 +7,7 @@
 
 import UIKit
 
-class KeyValueStackView: UIStackView {
+final class KeyValueStackView: UIStackView {
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -20,10 +20,10 @@ class KeyValueStackView: UIStackView {
   }
   
   private func commonInit() {
-    backgroundColor = .lightGray
     axis = .vertical
     alignment = .leading
-    spacing = 6
+    distribution = .fillEqually
+    spacing = 2
   }
 }
 
