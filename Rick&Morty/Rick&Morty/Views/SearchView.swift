@@ -7,28 +7,23 @@
 
 import UIKit
 
-class SearchView: UIView {
+final class SearchView: UIView {
   
-  var searchPanelView = SearchPanelView()
+  // MARK: - Private Properties
+  private lazy var cardImageView = ImageView(type: .card)
+  private lazy var planetLabel = Label(type: .bold, text: "Planet: Earth")
+  private lazy var nameLabel = Label(type: .bold, text: "Name: Rick")
+  private lazy var keyValueStackView = KeyValueStackView(type: .horizontal)
   
-  
-  private var cardImageView = ImageView(type: .card)
-  
-  private var planetLabel = Label(type: .bold, text: "Planet: Earth")
-  private var nameLabel = Label(type: .bold, text: "Name: Rick")
-  
-  private var keyValueStackView = KeyValueStackView(type: .horizontal)
-  
-  
-  var favoriteButton = Button(type: .favorite)
-  var infoButton = Button(type: .info)
-  
-  var leftGreenButton = Button(type: .leftGreen)
-  var rightGreenButton = Button(type: .rightGreen)
+  // MARK: - Public Properties
+  let searchPanelView = SearchPanelView()
+  let favoriteButton = Button(type: .favorite)
+  let infoButton = Button(type: .info)
+  let leftGreenButton = Button(type: .leftGreen)
+  let rightGreenButton = Button(type: .rightGreen)
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    
     setupViews()
     setupConstraints()
   }
@@ -36,7 +31,20 @@ class SearchView: UIView {
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+}
+
+// MARK: - Public
+extension SearchView {
+  func update(_ character: Character) {
+    let url = URL(string: character.image)
+    cardImageView.kf.setImage(with: url)
+    planetLabel.text = "Planet: \n\(character.location.name)"
+    nameLabel.text = "Name: \n\(character.name)"
+  }
+}
+
+// MARK: - Layout
+private extension SearchView {
   func setupViews() {
     backgroundColor = .appBackground
     layer.cornerRadius = 42
@@ -54,20 +62,9 @@ class SearchView: UIView {
     addSubview(infoButton)
     addSubview(leftGreenButton)
     addSubview(rightGreenButton)
-    
-  }
-  
-  func update(_ character: Character) {
-    let url = URL(string: character.image)
-    cardImageView.kf.setImage(with: url)
-    
-    
-    planetLabel.text = "Planet: \n\(character.location.name)"
-    nameLabel.text = "Name: \n\(character.name)"
   }
   
   func setupConstraints() {
-    
     searchPanelView.snp.makeConstraints { make in
       make.top.equalTo(self).offset(46)
       make.left.right.equalTo(self).inset(24)

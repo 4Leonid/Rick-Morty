@@ -16,8 +16,8 @@ final class CharactersView: UIView {
   private var statusLabel = Label(type: .character)
   private var createdLabel = Label(type: .character)
   
-  private var keyValueStackView = KeyValueStackView(type: .vertical)
-  private var cardImageView = ImageView(type: .card)
+  private lazy var keyValueStackView = KeyValueStackView(type: .vertical)
+  private lazy var cardImageView = ImageView(type: .card)
   
   var favoriteButton = Button(type: .favorite)
   var infoButton = Button(type: .info)
@@ -25,7 +25,7 @@ final class CharactersView: UIView {
   let leftWhiteButton = Button(type: .leftWhite)
   let rightWhiteButton = Button(type: .rightWhite)
   
-  var charactersInfo: [(key: String, value: String)] = []
+  private var charactersInfo: [(key: String, value: String)] = []
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -34,7 +34,10 @@ final class CharactersView: UIView {
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+}
+
+// MARK: - Public
+extension CharactersView {
   func update(chararcter: Character, charactersInfo: [(key: String, value: String)]) {
     let url = URL(string: chararcter.image)
     cardImageView.kf.setImage(with: url)
@@ -45,8 +48,10 @@ final class CharactersView: UIView {
     setupViews()
     setupConstraints()
   }
-  
-  // MARK: - Layout
+}
+
+// MARK: - Layouts
+private extension CharactersView {
   func setupViews() {
     backgroundColor = .appBackground
     layer.cornerRadius = 42
@@ -100,4 +105,3 @@ final class CharactersView: UIView {
     }
   }
 }
-

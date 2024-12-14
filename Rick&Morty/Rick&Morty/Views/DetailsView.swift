@@ -10,16 +10,13 @@ import UIKit
 final class DetailsView: UIView {
   
   // MARK: - Private Properties
-  private var detailImageView = ImageView(type: .detail)
-  private let detailTextView = DetailsStackView()
-  
-  lazy var model = convertModelToKeyValuePairs(character)
-  
-  var character: Character?
+  private lazy var detailImageView = ImageView(type: .detail)
+  private lazy var detailTextView = DetailsStackView()
+  private lazy var model = convertModelToKeyValuePairs(character)
+  private var character: Character?
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    
     setupViews()
     setupConstraints()
   }
@@ -27,14 +24,20 @@ final class DetailsView: UIView {
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+}
+
+// MARK: - Public
+extension DetailsView {
   func update(_ character: Character) {
     self.character = character
     let url = URL(string: character.image)
     detailImageView.kf.setImage(with: url)
     detailTextView.update(model, character.name)
   }
-  
+}
+
+// MARK: - Business Logic
+private extension DetailsView {
   func convertModelToKeyValuePairs(_ model: Character?) -> [(key: String, value: String)] {
     
     guard let model = model else { return [] }
@@ -50,8 +53,10 @@ final class DetailsView: UIView {
     
     return array
   }
-  
-  // MARK: - Layout
+}
+
+// MARK: - Layout
+private extension DetailsView {
   func setupViews() {
     backgroundColor = .white
     layer.cornerRadius = 42
@@ -64,7 +69,6 @@ final class DetailsView: UIView {
   }
   
   func setupConstraints() {
-    
     detailImageView.snp.makeConstraints { make in
       make.top.equalTo(self).inset(25)
       make.left.right.equalTo(self).inset(18)

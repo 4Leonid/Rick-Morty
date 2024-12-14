@@ -29,6 +29,23 @@ final class FavoriteCell: UITableViewCell {
     setupObservers()
   }
   
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+}
+
+// MARK: - Public
+extension FavoriteCell {
+  func update(_ character: CharacterEntity) {
+    self.character = character
+    let url = URL(string: character.image ?? "")
+    favoriteImageView.kf.setImage(with: url)
+    nameLabel.text = "Name: \n\(character.name ?? "")"
+  }
+}
+
+// MARK: - Observers
+private extension FavoriteCell {
   func setupObservers() {
     favoriteButton.onButtonAction = { [weak self] in
       guard let self else { return }
@@ -42,22 +59,9 @@ final class FavoriteCell: UITableViewCell {
       self.onInfoSelected?(character)
     }
   }
-  
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-  
-  func update(_ character: CharacterEntity) {
-    self.character = character
-    let url = URL(string: character.image ?? "")
-    favoriteImageView.kf.setImage(with: url)
-    nameLabel.text = "Name: \n\(character.name ?? "")"
-  }
 }
-
 // MARK: - Layout
-extension FavoriteCell {
-  
+private extension FavoriteCell {
   private func setupViews() {
     backgroundColor = .appBackground
     contentView.layer.cornerRadius = 10
@@ -69,7 +73,6 @@ extension FavoriteCell {
     contentView.addSubview(favoriteImageView)
     contentView.addSubview(favoriteButton)
     contentView.addSubview(infoButton)
-    
   }
   
   private func setupConstraints() {

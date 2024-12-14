@@ -20,11 +20,17 @@ final class PlanetCell: UITableViewCell {
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+}
+
+// MARK: - Public
+extension PlanetCell {
   func update(_ planet: Planet) {
     self.nameLabel.text = planet.name
   }
-  
+}
+
+// MARK: - Layouts
+private extension PlanetCell {
   func setupViews() {
     contentView.backgroundColor = .green
     contentView.addSubview(nameLabel)
@@ -34,6 +40,5 @@ final class PlanetCell: UITableViewCell {
     nameLabel.snp.makeConstraints { make in
       make.edges.equalTo(contentView).inset(16)
     }
-  }  
+  }
 }
-

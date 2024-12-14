@@ -7,20 +7,19 @@
 
 import UIKit
 
-class PlanetsViewController: UIViewController {
-  
-  var planets: [Planet] = []
+final class PlanetsViewController: UIViewController {
   
   var onPlanetSelected: ((Planet)->())?
   
-  lazy var tableView: UITableView = {
+  // MARK: - Private Properties
+  private var planets: [Planet] = []
+  
+  private lazy var tableView: UITableView = {
     let tableView = UITableView()
     tableView.backgroundColor = .green
     tableView.registerCell(PlanetCell.self)
-    
     tableView.dataSource = self
     tableView.delegate = self
-    
     return tableView
   }()
   
@@ -29,12 +28,16 @@ class PlanetsViewController: UIViewController {
     setupViews()
     setupConstraints()
   }
-  
+}
+
+// MARK: - Public
+extension PlanetsViewController {
   func update(_ planets: [Planet]) {
     self.planets = planets
   }
 }
 
+// MARK: - UITableViewDataSource, UITableViewDelegate
 extension PlanetsViewController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return planets.count
@@ -55,8 +58,8 @@ extension PlanetsViewController: UITableViewDataSource, UITableViewDelegate {
   }
 }
 
-extension PlanetsViewController {
-  
+// MARK: - Layouts
+private extension PlanetsViewController {
   func setupViews() {
     view.addSubview(tableView)
   }

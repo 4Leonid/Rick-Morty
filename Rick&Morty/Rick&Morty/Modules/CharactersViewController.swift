@@ -11,14 +11,12 @@ import SnapKit
 final class CharactersViewController: UIViewController {
   
   // MARK: - Private Properties
-  
   private let charactersLoader = CharactersLoader()
   private let characterStorage = CharacterStorage()
   
   private lazy var headLineLabel = Label(type: .headline, text: "Characters")
   private lazy var charactersView = CharactersView()
  
-  
   // MARK: - Public Properties
   var characters: [Character] = []
   var character: Character?
@@ -28,28 +26,27 @@ final class CharactersViewController: UIViewController {
   // MARK: - Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     setupViews()
     setupConstraints()
-    setBackgroundImage()
+    setupBackgroundImage()
     setupObservers()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
     loadCharacter(characterId)
-    
   }
 }
 
-// MARK: -
-extension CharactersViewController {
-  
-  func convertModelToKeyValuePairs(_ model: Character) -> [(key: String, value: String)] {
-    
+// MARK: - Business Logic
+private extension CharactersViewController {
+  private func convertModelToKeyValuePairs(_ model: Character) -> [(key: String, value: String)] {
     let array: [(key: String, value: String)] = [
       ("Planet: ", model.origin.name),
       ("Name: ", model.name),
       ("Status: ", model.status),
       ("Created: ", model.created)
     ]
-    
     return array
   }
   
@@ -78,15 +75,11 @@ extension CharactersViewController {
 }
 
 // MARK: - Observers
-extension CharactersViewController {
-  
+private extension CharactersViewController {
   func setupObservers() {
-    
     charactersView.infoButton.onButtonAction = {
       let detailVC = DetailsViewController()
-      
       self.present(detailVC, animated: true)
-      
       guard let character = self.character else { return }
       detailVC.update(character)
     }
@@ -103,14 +96,10 @@ extension CharactersViewController {
     
     charactersView.favoriteButton.onButtonAction = { [weak self] in
       guard let self else { return }
-      
       self.charactersView.favoriteButton.isSelected.toggle()
-      
       guard let character = self.character else { return }
-      
       if self.charactersView.favoriteButton.isSelected {
         characterStorage.save(character: character)
-        
       } else {
         characterStorage.delete(characterID: characterId)
       }
@@ -119,7 +108,7 @@ extension CharactersViewController {
 }
 
 // MARK: - Layouts
-extension CharactersViewController {
+private extension CharactersViewController {
   func setupViews() {
     view.addSubview(headLineLabel)
     view.addSubview(charactersView)

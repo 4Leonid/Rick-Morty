@@ -18,7 +18,7 @@ final class DetailsStackView: UIView {
   
   // MARK: - Private Properties
   private let nameLabel = KeyValueLabel()
-  private var keyValueStackView = KeyValueStackView(type: .horizontal)
+  private var keyValueStackView = KeyValueStackView(type: .vertical)
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -27,13 +27,18 @@ final class DetailsStackView: UIView {
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+}
+
+// MARK: - Public
+extension DetailsStackView {
   func update(_ model: [(key: String, value: String)], _ name: String) {
     self.modelInfo = model
     nameLabel.update(text: name)
   }
-  
-  // MARK: - Layout
+}
+
+// MARK: - Layout
+private extension DetailsStackView {
   func setupViews() {
     backgroundColor = .systemGreen
     layer.borderWidth = 3

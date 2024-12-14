@@ -18,11 +18,11 @@ final class DetailsViewController: UIViewController {
     super.viewDidLoad()
     setupViews()
     setupConstraints()
-    setBackgroundImage()
+    setupBackgroundImage()
   }
 }
 
-// MARK: -
+// MARK: - Public
 extension DetailsViewController {
   func update(_ character: Character) {
     detailsView.update(character)
@@ -30,8 +30,7 @@ extension DetailsViewController {
 }
 
 // MARK: - Layouts
-extension DetailsViewController {
-  
+private extension DetailsViewController {
   func setupViews() {
     view.addSubview(detailsView)
     view.addSubview(headLineLabel)

@@ -18,10 +18,8 @@ enum ButtonStyle {
   case search
 }
 
-class Button: UIButton {
-  
+final class Button: UIButton {
   var onButtonAction: (() -> Void)?
-  
   init(type: ButtonStyle) {
     super.init(frame: .zero)
     commonInit(type)
@@ -33,7 +31,7 @@ class Button: UIButton {
   
   func commonInit(_ type: ButtonStyle) {
     
-    self.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+    addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     
     switch type {
     case .favorite:
@@ -54,66 +52,65 @@ class Button: UIButton {
       makeSearchStyle()
     }
   }
-  
+}
+
+// MARK: - Styles
+private extension Button {
   func makeInfoStyle() {
-    self.widthAnchor.constraint(equalToConstant: 63).isActive = true
-    self.heightAnchor.constraint(equalToConstant: 63).isActive = true
-    self.setImage(UIImage(named: "info"), for: .normal)
-    
-  
+    widthAnchor.constraint(equalToConstant: 63).isActive = true
+    heightAnchor.constraint(equalToConstant: 63).isActive = true
+    setImage(UIImage(named: "info"), for: .normal)
     backgroundColor = .white
     layer.cornerRadius = 31.5
     clipsToBounds = true
   }
   
   func makeFavoriteStyle() {
-    self.widthAnchor.constraint(equalToConstant: 61).isActive = true
-    self.heightAnchor.constraint(equalToConstant: 54).isActive = true
-    self.setImage(UIImage(named: "Star 1"), for: .normal)
-    self.setImage(UIImage(named: "Star 2"), for: .selected)
+    widthAnchor.constraint(equalToConstant: 61).isActive = true
+    heightAnchor.constraint(equalToConstant: 54).isActive = true
+    setImage(UIImage(named: "Star 1"), for: .normal)
+    setImage(UIImage(named: "Star 2"), for: .selected)
   }
   
   func makeFavoriteActiveStyle() {
-    self.widthAnchor.constraint(equalToConstant: 61).isActive = true
-    self.heightAnchor.constraint(equalToConstant: 54).isActive = true
-    self.setImage(UIImage(named: "Star 2"), for: .normal)
+    widthAnchor.constraint(equalToConstant: 61).isActive = true
+    heightAnchor.constraint(equalToConstant: 54).isActive = true
+    setImage(UIImage(named: "Star 2"), for: .normal)
   }
   
   func makeLeftWhiteStyle() {
-    self.widthAnchor.constraint(equalToConstant: 35).isActive = true
-    self.heightAnchor.constraint(equalToConstant: 62).isActive = true
-    self.setImage(UIImage(named: "leftWhite"), for: .normal)
+    widthAnchor.constraint(equalToConstant: 35).isActive = true
+    heightAnchor.constraint(equalToConstant: 62).isActive = true
+    setImage(UIImage(named: "leftWhite"), for: .normal)
   }
   
   func makeRightWhiteStyle() {
-    self.widthAnchor.constraint(equalToConstant: 35).isActive = true
-    self.heightAnchor.constraint(equalToConstant: 62).isActive = true
-    self.setImage(UIImage(named: "rightWhite"), for: .normal)
+    widthAnchor.constraint(equalToConstant: 35).isActive = true
+    heightAnchor.constraint(equalToConstant: 62).isActive = true
+    setImage(UIImage(named: "rightWhite"), for: .normal)
   }
   
   func makeLeftGreenStyle() {
-    self.widthAnchor.constraint(equalToConstant: 35).isActive = true
-    self.heightAnchor.constraint(equalToConstant: 62).isActive = true
-    self.setImage(UIImage(named: "leftGreen"), for: .normal)
+    widthAnchor.constraint(equalToConstant: 35).isActive = true
+    heightAnchor.constraint(equalToConstant: 62).isActive = true
+    setImage(UIImage(named: "leftGreen"), for: .normal)
   }
   
   func makeRightGreenStyle() {
-    self.widthAnchor.constraint(equalToConstant: 35).isActive = true
-    self.heightAnchor.constraint(equalToConstant: 62).isActive = true
-    self.setImage(UIImage(named: "rightGreen"), for: .normal)
+    widthAnchor.constraint(equalToConstant: 35).isActive = true
+    heightAnchor.constraint(equalToConstant: 62).isActive = true
+    setImage(UIImage(named: "rightGreen"), for: .normal)
   }
   
   func makeSearchStyle() {
-      self.widthAnchor.constraint(equalToConstant: 30).isActive = true
-    self.heightAnchor.constraint(equalToConstant: 16).isActive = true
-    self.setImage(UIImage(named: "arrow"), for: .normal)
+    widthAnchor.constraint(equalToConstant: 30).isActive = true
+    heightAnchor.constraint(equalToConstant: 16).isActive = true
+    setImage(UIImage(named: "arrow"), for: .normal)
   }
 }
 
 extension Button {
   @objc private func buttonTapped() {
-    
     onButtonAction?()
-    
   }
 }

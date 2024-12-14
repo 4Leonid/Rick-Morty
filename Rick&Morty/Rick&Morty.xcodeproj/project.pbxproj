@@ -101,7 +101,7 @@
 				};
 			};
 			buildConfigurationList = BFA718D72CFCC61C00A6710C /* Build configuration list for PBXProject "Rick&Morty" */;
-			compatibilityVersion = "Xcode 15.0";
+			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (

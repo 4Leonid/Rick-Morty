@@ -11,7 +11,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
   var window: UIWindow?
 
-
   func scene(
     _ scene: UIScene,
     willConnectTo session: UISceneSession,
@@ -22,7 +21,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     window?.rootViewController = TabBarViewController()
     window?.makeKeyAndVisible()
   }
-
 
   func sceneDidDisconnect(_ scene: UIScene) {
     // Called as the scene is being released by the system.
@@ -52,6 +50,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // to restore the scene back to its current state.
   }
 
-
 }
-

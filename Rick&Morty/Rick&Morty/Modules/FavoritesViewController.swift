@@ -20,13 +20,12 @@ final class FavoritesViewController: UIViewController {
     super.viewDidLoad()
     setupViews()
     setupConstraints()
-    setBackgroundImage()
+    setupBackgroundImage()
     setupObservers()
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    
     loadCharactersFromDatabase()
   }
   
@@ -40,11 +39,8 @@ final class FavoritesViewController: UIViewController {
     favoritesView.onFavoriteCharSelected = { [weak self] character in
       
       guard let self else { return }
-      
       self.characterStorage.delete(characterID: Int(character.id))
-      
-      self.favoritesView.tableView.reloadData()
-      
+      loadCharactersFromDatabase()
     }
     
     favoritesView.onInfoSelected = { char in
@@ -60,13 +56,15 @@ final class FavoritesViewController: UIViewController {
           self.present(detailVC, animated: true)
           detailVC.update(character)
           
-        case .failure(let error): print(error)
+        case .failure(let error):
+          print(error)
         }
       })
     }
   }
 }
 
+// MARK: -
 
 // MARK: - Layouts
 private extension FavoritesViewController {
@@ -89,6 +87,6 @@ private extension FavoritesViewController {
     }
   }
 }
-  
+
 
 

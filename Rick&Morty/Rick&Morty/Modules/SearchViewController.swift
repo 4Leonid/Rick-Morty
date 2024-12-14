@@ -17,25 +17,24 @@ final class SearchViewController: UIViewController {
   private lazy var headLineLabel = Label(type: .headline, text: "Search")
   private lazy var searchView = SearchView()
   
-  // MARK: - Public Properties
-  var character: Character?
-  var characterId = 1
-  var residents: [String] = []
-  var residentIndex = 0
-  var planet: Planet?
+  private var character: Character?
+  private var characterId = 1
+  private var residents: [String] = []
+  private var residentIndex = 0
+  private var planet: Planet?
   
   // MARK: - Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
     setupViews()
     setupConstraints()
-    setBackgroundImage()
+    setupBackgroundImage()
     loadCharacter(characterId)
     setupObservers()
   }
 }
 
-// MARK: -
+// MARK: - Business Logic
 extension SearchViewController {
   func loadCharacter(_ id: Int) {
     charactersLoader.loadCharacter(id: id) { [weak self] result in
@@ -57,8 +56,8 @@ extension SearchViewController {
   }
 }
 
-// MARK: -
-extension SearchViewController {
+// MARK: - Observers
+private extension SearchViewController {
   func setupObservers() {
     searchView.infoButton.onButtonAction = { [weak self] in
       guard let self else { return }
@@ -67,7 +66,6 @@ extension SearchViewController {
       guard let character = self.character else { return }
       detailVC.update(character)
     }
-    
     
     searchView.searchPanelView.searchButton.onButtonAction = { [weak self] in
       guard let self else { return }
@@ -103,9 +101,37 @@ extension SearchViewController {
 
 //MARK: - Navigation
 private extension SearchViewController {
+  func navigateToPlanetsScreen(_ planets: [Planet]) {
+    let planetsViewController = PlanetsViewController()
+    
+    planetsViewController.onPlanetSelected = { [weak self] planet in
+      guard let self else { return }
+      self.residentIndex = 0
+      self.planet = planet
+      self.searchView.searchPanelView.textLabel.text = "Search by \(planet.name)"
+      loadCharacterByPlanet(planet)
+    }
+    
+    self.present(planetsViewController, animated: true)
+    planetsViewController.update(planets)
+  }
+}
+
+//MARK: - Business Logic
+private extension SearchViewController {
+  func loadPlanets() {
+    planetsLoader.loadPlanets { result in
+      switch result {
+      case .success(let planets):
+        self.navigateToPlanetsScreen(planets)
+        
+      case .failure(let error):
+        print(error)
+      }
+    }
+  }
   
   func loadCharacterByPlanet(_ planet: Planet?) {
-    
     guard let planet else { return }
     guard planet.residents.isNotEmpty else { return }
     residents = planet.residents
@@ -133,42 +159,10 @@ private extension SearchViewController {
       }
     }
   }
-  
-  func navigateToPlanetsScreen(_ planets: [Planet]) {
-    let planetsViewController = PlanetsViewController()
-    
-    planetsViewController.onPlanetSelected = { [weak self] planet in
-      guard let self else { return }
-      self.residentIndex = 0
-      self.planet = planet
-      self.searchView.searchPanelView.textLabel.text = "Search by \(planet.name)"
-      loadCharacterByPlanet(planet)
-    }
-    
-    self.present(planetsViewController, animated: true)
-    planetsViewController.update(planets)
-  }
-}
-
-//MARK: - Business Logic
-private extension SearchViewController {
-  func loadPlanets() {
-    
-    planetsLoader.loadPlanets { result in
-      switch result {
-      case .success(let planets):
-        self.navigateToPlanetsScreen(planets)
-        
-      case .failure(let error):
-        print(error)
-      }
-    }
-  }
 }
 
 // MARK: - Layout
 private extension SearchViewController {
-  
   func setupViews() {
     view.backgroundColor = .orange
     view.addSubview(searchView)

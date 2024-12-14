@@ -14,16 +14,18 @@ enum StackViewType {
 
 final class KeyValueStackView: UIStackView {
   
- init(type: StackViewType) {
-   super.init(frame: .zero)
+  init(type: StackViewType) {
+    super.init(frame: .zero)
     commonInit(type)
   }
   
   required init(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
-  private func commonInit(_ type: StackViewType) {
+}
+
+private extension KeyValueStackView {
+  func commonInit(_ type: StackViewType) {
     switch type {
     case .horizontal:
       axis = .horizontal
@@ -37,23 +39,3 @@ final class KeyValueStackView: UIStackView {
     }
   }
 }
-
-//final class SearchHorizontalStackView: UIStackView {
-//  
-//  override init(frame: CGRect) {
-//    super.init(frame: frame)
-//    commonInit()
-//  }
-//  
-//  required  init(coder: NSCoder) {
-//    fatalError("init(coder:) has not been implemented")
-//  }
-//  
-//  private func commonInit() {
-//    axis = .vertical
-//    alignment = .leading
-//    distribution = .fillEqually
-//    spacing = 2
-//  }
-//}
-

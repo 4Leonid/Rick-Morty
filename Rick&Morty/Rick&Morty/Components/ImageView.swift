@@ -13,11 +13,9 @@ enum ImageType: Int, CaseIterable {
   case detail
   case search
   case favorite
-  //    case star
-  //    case info
 }
 
-class ImageView: UIImageView {
+final class ImageView: UIImageView {
   
   init(type: ImageType) {
     super.init(frame: .zero)
@@ -41,6 +39,7 @@ class ImageView: UIImageView {
       image = UIImage(named: "globus")
       clipsToBounds = true
     case .favorite:
+      heightAnchor.constraint(equalToConstant: 276).isActive = true
       image = UIImage(named: "default")
       layer.cornerRadius = 21
       clipsToBounds = true
@@ -50,5 +49,4 @@ class ImageView: UIImageView {
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
 }
