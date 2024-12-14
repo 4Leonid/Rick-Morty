@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,7 +16,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		BFA718EE2CFCC61D00A6710C /* Exceptions for "Rick&Morty" folder in "Rick&Morty" target */ = {
+		BFA718EE2CFCC61D00A6710C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/Info.plist,
@@ -26,14 +26,7 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		BFA718DE2CFCC61C00A6710C /* Rick&Morty */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				BFA718EE2CFCC61D00A6710C /* Exceptions for "Rick&Morty" folder in "Rick&Morty" target */,
-			);
-			path = "Rick&Morty";
-			sourceTree = "<group>";
-		};
+		BFA718DE2CFCC61C00A6710C /* Rick&Morty */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (BFA718EE2CFCC61D00A6710C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Rick&Morty"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +101,7 @@
 				};
 			};
 			buildConfigurationList = BFA718D72CFCC61C00A6710C /* Build configuration list for PBXProject "Rick&Morty" */;
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -120,7 +114,6 @@
 				BFA719032CFCCB3500A6710C /* XCRemoteSwiftPackageReference "SnapKit" */,
 				BF5C9B6E2D048A3D006626A9 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
-			preferredProjectObjectVersion = 77;
 			productRefGroup = BFA718DD2CFCC61C00A6710C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

@@ -8,38 +8,39 @@
 import UIKit
 
 final class TabBarViewController: UITabBarController {
-  private var charactersViewController: CharactersViewController = {
-    let viewController = CharactersViewController()
-
-    
-    viewController.tabBarItem = .init(title: "Characters", image: UIImage(systemName: "person"), tag: 0)
-    return viewController
-  }()
   
-  private var searchViewController: SearchViewController = {
-    let viewController = SearchViewController()
-    viewController.tabBarItem = .init(title: "Search", image: UIImage(systemName: "magnifyingglass"), tag: 1)
-    return viewController
-  }()
+  // MARK: - Private Properties
+  private let charactersViewController = CharactersViewController()
+  private let searchViewController = SearchViewController()
+  private let favoriteViewController = FavoritesViewController()
   
-  private var favoriteViewController: FavoritesViewController = {
-    let viewController = FavoritesViewController()
-    viewController.tabBarItem = .init(title: "Favorites", image: UIImage(systemName: "star"), tag: 2)
-    return viewController
-  }()
-  
+  // MARK: - Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+    setupTabBar()
+  }
+}
+
+// MARK: - Private
+private extension TabBarViewController {
+  func setupTabBar() {
     tabBar.backgroundColor = .darkGray
     tabBar.tintColor = .white
     
     viewControllers = [
-      charactersViewController,
-      searchViewController,
-      favoriteViewController
+      createController(controller: charactersViewController, pictureName: "person", title: "Characters"),
+      createController(controller: searchViewController, pictureName: "magnifyingglass", title: "Search"),
+      createController(controller: favoriteViewController, pictureName: "star", title: "Favorite"),
     ]
   }
   
+  func createController(
+    controller: UIViewController,
+    pictureName: String,
+    title: String
+  ) -> UIViewController {
+    
+    controller.tabBarItem = .init(title: title, image: UIImage(systemName: pictureName), tag: 0)
+    return controller
+  }
 }
-

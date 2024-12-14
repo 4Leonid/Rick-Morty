@@ -18,7 +18,7 @@ final class DetailsStackView: UIView {
   
   // MARK: - Private Properties
   private let nameLabel = KeyValueLabel()
-  private var keyValueStackView = KeyValueStackView()
+  private var keyValueStackView = KeyValueStackView(type: .horizontal)
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -35,7 +35,6 @@ final class DetailsStackView: UIView {
   
   // MARK: - Layout
   func setupViews() {
-    
     backgroundColor = .systemGreen
     layer.borderWidth = 3
     layer.borderColor = UIColor.black.cgColor
@@ -54,7 +53,6 @@ final class DetailsStackView: UIView {
   }
   
   func setupConstraints() {
-    
     nameLabel.snp.makeConstraints { make in
       make.top.equalTo(self).offset(23)
       make.centerX.equalTo(self)
@@ -64,6 +62,5 @@ final class DetailsStackView: UIView {
       make.top.equalTo(nameLabel.snp.bottom).offset(10)
       make.left.right.equalTo(self).inset(18)
     }
-    
   }
 }

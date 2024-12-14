@@ -10,17 +10,22 @@ import SnapKit
 
 final class CharactersViewController: UIViewController {
   
-  private var charactersView = CharactersView()
+  // MARK: - Private Properties
+  
   private let charactersLoader = CharactersLoader()
   private let characterStorage = CharacterStorage()
-  private let headLineLabel = Label(type: .headline, text: "Characters")
   
+  private lazy var headLineLabel = Label(type: .headline, text: "Characters")
+  private lazy var charactersView = CharactersView()
+ 
+  
+  // MARK: - Public Properties
   var characters: [Character] = []
   var character: Character?
   var charactersInfo: [(key: String, value: String)] = []
-  
   var characterId = 1
   
+  // MARK: - Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -28,11 +33,12 @@ final class CharactersViewController: UIViewController {
     setupConstraints()
     setBackgroundImage()
     setupObservers()
-    
     loadCharacter(characterId)
+    
   }
 }
 
+// MARK: -
 extension CharactersViewController {
   
   func convertModelToKeyValuePairs(_ model: Character) -> [(key: String, value: String)] {
@@ -112,6 +118,7 @@ extension CharactersViewController {
   }
 }
 
+// MARK: - Layouts
 extension CharactersViewController {
   func setupViews() {
     view.addSubview(headLineLabel)

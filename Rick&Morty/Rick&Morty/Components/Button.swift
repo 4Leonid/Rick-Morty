@@ -24,7 +24,6 @@ class Button: UIButton {
   
   init(type: ButtonStyle) {
     super.init(frame: .zero)
-    
     commonInit(type)
   }
   

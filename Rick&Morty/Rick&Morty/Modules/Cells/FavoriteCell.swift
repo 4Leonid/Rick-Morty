@@ -13,44 +13,32 @@ final class FavoriteCell: UITableViewCell {
   var onInfoSelected: ((CharacterEntity)->())?
   
   private let favoriteImageView = ImageView(type: .favorite)
-  private var keyValueStackView = KeyValueStackView()
+  private var keyValueStackView = KeyValueStackView(type: .horizontal)
+  private var favoriteButton = Button(type: .favoriteActive)
+  private let infoButton = Button(type: .info)
   
-  let infoButton = Button(type: .info)
-  private let nameLabel = Label(type: .favorite, text: "Name: Summer Smith")
+  private lazy var nameLabel = Label(type: .bold, text: "Name: Summer Smith")
   
   var character: CharacterEntity?
   
-  var favoriteButton = Button(type: .favoriteActive)
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
-    
     setupViews()
     setupConstraints()
     setupObservers()
   }
   
-  
-  @objc  func favoriteButtonAction() {
-    print("favorite")
-  }
-  
   func setupObservers() {
-    
     favoriteButton.onButtonAction = { [weak self] in
-      
       guard let self else { return }
-      
       guard let character = self.character else { return }
-      
       self.onFavoriteSelected?(character)
     }
     
-    
-    infoButton.onButtonAction = {
-      
+    infoButton.onButtonAction = { [weak self] in
+      guard let self else { return }
       guard let character = self.character else { return }
-      
       self.onInfoSelected?(character)
     }
   }
@@ -60,15 +48,14 @@ final class FavoriteCell: UITableViewCell {
   }
   
   func update(_ character: CharacterEntity) {
-    
     self.character = character
     let url = URL(string: character.image ?? "")
     favoriteImageView.kf.setImage(with: url)
     nameLabel.text = "Name: \n\(character.name ?? "")"
-    
   }
 }
 
+// MARK: - Layout
 extension FavoriteCell {
   
   private func setupViews() {

@@ -9,11 +9,10 @@ import UIKit
 
 final class SearchPanelView: UIView {
   
-  private let horizontalStackView = SearchHorizontalStackView()
-  
+  private let horizontalStackView = KeyValueStackView(type: .horizontal)
   private let worldImageView = ImageView(type: .search)
   
-  var textLabel = Label(type: .search, text: "Search by planet")
+  var textLabel = Label(type: .bold, text: "Search by planet")
   
   let searchButton = Button(type: .search)
    

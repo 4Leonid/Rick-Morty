@@ -9,15 +9,15 @@ import UIKit
 
 final class FavoritesViewController: UIViewController {
   
-  private let favoritesView = FavoritesView()
+  // MARK: - Private Properties
   private let characterStorage = CharacterStorage()
   private let charactersLoader = CharactersLoader()
   
-  private let headLineLabel = Label(type: .headline, text: "Favorites")
+  private lazy var favoritesView = FavoritesView()
+  private lazy var headLineLabel = Label(type: .headline, text: "Favorites")
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     setupViews()
     setupConstraints()
     setBackgroundImage()

@@ -30,11 +30,8 @@ final class DetailsView: UIView {
   
   func update(_ character: Character) {
     self.character = character
-    
     let url = URL(string: character.image)
     detailImageView.kf.setImage(with: url)
-    
-    
     detailTextView.update(model, character.name)
   }
   

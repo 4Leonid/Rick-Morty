@@ -9,35 +9,35 @@ import UIKit
 
 final class DetailsViewController: UIViewController {
   
-  private let detailsView = DetailsView()
-  private let headLineLabel = Label(type: .headline, text: "Details")
+  // MARK: - Private Properties
+  private lazy var detailsView = DetailsView()
+  private lazy var headLineLabel = Label(type: .headline, text: "Details")
   
+  // MARK: - Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     setupViews()
     setupConstraints()
     setBackgroundImage()
   }
 }
 
+// MARK: -
 extension DetailsViewController {
   func update(_ character: Character) {
-    
     detailsView.update(character)
-    
   }
 }
 
+// MARK: - Layouts
 extension DetailsViewController {
+  
   func setupViews() {
-    
     view.addSubview(detailsView)
     view.addSubview(headLineLabel)
   }
   
   func setupConstraints() {
-    
     headLineLabel.snp.makeConstraints { make in
       make.top.equalTo(view.safeAreaLayoutGuide).inset(16)
       make.centerX.equalTo(view.snp.centerX)

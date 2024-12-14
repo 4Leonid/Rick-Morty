@@ -10,15 +10,15 @@ import UIKit
 class SearchView: UIView {
   
   var searchPanelView = SearchPanelView()
-    
-    
-  private var cardImageView = ImageView(type: .card)
-    
-  private var planetLabel = Label(type: .search, text: "Planet: Earth")
-  private var nameLabel = Label(type: .search, text: "Name: Rick")
   
-  private var keyValueStackView = KeyValueStackView()
- 
+  
+  private var cardImageView = ImageView(type: .card)
+  
+  private var planetLabel = Label(type: .bold, text: "Planet: Earth")
+  private var nameLabel = Label(type: .bold, text: "Name: Rick")
+  
+  private var keyValueStackView = KeyValueStackView(type: .horizontal)
+  
   
   var favoriteButton = Button(type: .favorite)
   var infoButton = Button(type: .info)
@@ -58,11 +58,10 @@ class SearchView: UIView {
   }
   
   func update(_ character: Character) {
-      
-      let url = URL(string: character.image)
-      cardImageView.kf.setImage(with: url)
-      
-      
+    let url = URL(string: character.image)
+    cardImageView.kf.setImage(with: url)
+    
+    
     planetLabel.text = "Planet: \n\(character.location.name)"
     nameLabel.text = "Name: \n\(character.name)"
   }

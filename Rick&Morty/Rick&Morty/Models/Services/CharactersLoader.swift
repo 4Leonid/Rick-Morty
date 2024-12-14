@@ -16,14 +16,22 @@ class CharactersLoader {
   
   let session = URLSession.shared
   let decoder = JSONDecoder()
+  var components = URLComponents()
+  
   
   func loadCharacters(completion: @escaping (Result<[Character], Error>) -> Void) {
-    let url = URL(string: "https://rickandmortyapi.com/api/character/1")!
+    
+    
+    components.scheme = "https"
+    components.host = "rickandmortyapi.com"
+    components.path = "/api/character/1"
+    
+    guard let url = components.url else { return }
     
     session.dataTask(with: url) { data, _, error in
       
       if error != nil {
-        print(error?.localizedDescription)
+        completion(.failure(NetworkError.invalidResponse))
       }
       
       guard let data else { return }
@@ -45,7 +53,7 @@ class CharactersLoader {
     session.dataTask(with: url) { data, _, error in
       
       if error != nil {
-        print(error?.localizedDescription)
+        completion(.failure(NetworkError.invalidResponse))
       }
       
       guard let data else { return }

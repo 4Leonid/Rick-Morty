@@ -16,7 +16,7 @@ final class CharactersView: UIView {
   private var statusLabel = Label(type: .character)
   private var createdLabel = Label(type: .character)
   
-  private var keyValueStackView = KeyValueStackView()
+  private var keyValueStackView = KeyValueStackView(type: .vertical)
   private var cardImageView = ImageView(type: .card)
   
   var favoriteButton = Button(type: .favorite)
@@ -35,8 +35,7 @@ final class CharactersView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func update(chararcter: Character, charactersInfo:
-              [(key: String, value: String)]) {
+  func update(chararcter: Character, charactersInfo: [(key: String, value: String)]) {
     let url = URL(string: chararcter.image)
     cardImageView.kf.setImage(with: url)
     planetLabel.text = "Planet: \(chararcter.location.name)"
