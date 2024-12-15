@@ -38,7 +38,6 @@ extension KeyValueLabel {
     
     let result = NSMutableAttributedString()
     result.append(underlinedText)
-    
     attributedText = result
   }
 }
@@ -50,7 +49,6 @@ private extension KeyValueLabel {
     attributedString.foregroundColor = .yellow
     attributedString.backgroundColor = .pink
     attributedString.font = .boldSystemFont(ofSize: 15)
-    
     return attributedString
   }
   
@@ -60,15 +58,12 @@ private extension KeyValueLabel {
     attributedString.backgroundColor = .yellow
     attributedString.font = .systemFont(ofSize: 15)
     attributedString.underlineStyle = .single
-    
     return attributedString
   }
   
   func makeUnderlineString(_ string: String) -> AttributedString {
     var attributedString = AttributedString(string)
-    
     attributedString.underlineStyle = NSUnderlineStyle.single
-    
     return attributedString
   }
 }
