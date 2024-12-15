@@ -50,7 +50,11 @@ extension SearchViewController {
         }
         self.searchView.update(character)
       case .failure(let error):
-        print(error)
+        AlertService.shared.showAlert(
+          title: "Error",
+          message: error.localizedDescription,
+          on: self
+        )
       }
     }
   }
@@ -126,7 +130,11 @@ private extension SearchViewController {
         self.navigateToPlanetsScreen(planets)
         
       case .failure(let error):
-        print(error)
+        AlertService.shared.showAlert(
+          title: "Error",
+          message: error.localizedDescription,
+          on: self
+        )
       }
     }
   }
@@ -154,7 +162,11 @@ private extension SearchViewController {
           self.searchView.update(character)
           
         case .failure(let error):
-          print(error)
+          AlertService.shared.showAlert(
+            title: "Error",
+            message: error.localizedDescription,
+            on: self
+          )
         }
       }
     }
