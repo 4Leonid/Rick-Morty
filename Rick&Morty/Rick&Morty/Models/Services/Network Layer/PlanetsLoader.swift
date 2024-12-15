@@ -11,7 +11,7 @@ protocol IPlanetsLoader {
   func loadPlanets(completion: @escaping (Result<[Planet], Error>) -> Void)
 }
 
-final class PlanetsLoader: IPlanetsLoader {
+struct PlanetsLoader: IPlanetsLoader {
   
   // MARK: - Private
   private let networkClient: INetworkClient

@@ -29,8 +29,12 @@ final class SearchViewController: UIViewController {
     setupViews()
     setupConstraints()
     setupBackgroundImage()
-    loadCharacter(characterId)
     setupObservers()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    loadCharacter(characterId)
   }
 }
 
