@@ -13,7 +13,7 @@ final class SearchView: UIView {
   private lazy var cardImageView = ImageView(type: .card)
   private lazy var planetLabel = Label(type: .bold, text: "Planet: Earth")
   private lazy var nameLabel = Label(type: .bold, text: "Name: Rick")
-  private lazy var keyValueStackView = KeyValueStackView(type: .horizontal)
+  private lazy var keyValueStackView = KeyValueStackView(type: .vertical)
   
   // MARK: - Public Properties
   let searchPanelView = SearchPanelView()
